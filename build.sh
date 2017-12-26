@@ -8,4 +8,4 @@ cd foo-app
 
 mvn clean
 
-mvn install
+mvn -U install
