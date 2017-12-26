@@ -1,0 +1,28 @@
+---
+resources: 
+# resource for my GitHub repo
+- name: concourse-boot-sample
+  type: git
+  source:
+    uri: https://github.com/sabbyanandan/sandbox.git
+    branch: master
+    submodules: https://github.com/sabbyanandan/sandbox/tree/master/concourse-boot-sample
+    
+jobs:
+- name: build-binary
+  plan:
+    - get: concourse-boot-sample
+      trigger: true
+    - task: build-task
+      privileged: true
+      file: concourse-boot-sample/build.yml
+
+# - name: deploy-to-prod
+#   plan:
+#     - get: resource-s3
+#       trigger: true
+#       passed: [build-binary]
+#     - get: resource-seroter-repo
+#     - put: resource-azure
+#       params:
+#         manifest: resource-seroter-repo/manifest-ci.yml
