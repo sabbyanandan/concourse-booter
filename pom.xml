@@ -15,7 +15,6 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -40,11 +39,41 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.23.0</version>
+				<configuration>
+				  <images>
+					<image>
+					  <name>sabby/${project.artifactId}</name>
+					  <build>
+						<from>java:8-alpine</from>
+						<volumes>
+						  <volume>/tmp</volume>
+						</volumes>
+						<entryPoint>
+						  <exec>
+							<arg>java</arg>
+							<arg>-jar</arg>
+							<arg>/maven/concourse-boot-sample.jar</arg>
+						  </exec>
+						</entryPoint>
+						<assembly>
+						  <descriptor>assembly.xml</descriptor>
+						</assembly>
+					  </build>
+					</image>
+				  </images>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

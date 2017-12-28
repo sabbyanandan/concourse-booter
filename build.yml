@@ -8,7 +8,7 @@ image_resource:
     tag: latest
     
 inputs:
-  - name: concourse-boot-sample
+  - name: the-gitrigger
   
 outputs:
   - name: foo-app

@@ -2,10 +2,13 @@
 
 set -e -x
 
+export ROOT_FOLDER=$( pwd )
+export REPO=repo
+
+. generate-settings.sh
+
 git clone concourse-boot-sample foo-app
 
 cd foo-app
 
-mvn clean
-
-mvn -U install
+./mvnw package docker:build
