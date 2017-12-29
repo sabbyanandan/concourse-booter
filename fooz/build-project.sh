@@ -8,6 +8,6 @@ cleanup_maven_repo "com.exmaple"
 
 repository=$(pwd)/distribution-repository
 
-pushd git-repo > /dev/null
+pushd the-gitrigger > /dev/null
 run_maven -f pom.xml clean deploy -U -Dfull -DaltDeploymentRepository=distribution::default::file://${repository}
 popd > /dev/null
