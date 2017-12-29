@@ -11,28 +11,26 @@ inputs:
   
 outputs:
   - name: foo-app
-  
+
 run:
   path: sh
   args:
     - -exc
     - |
-    
-    # export ROOT_FOLDER=$( pwd )
-    # export REPO=repo
+      source /docker-lib.sh
+      start_docker
 
-    
-    source /docker-lib.sh
-    start_docker
-    
+      # Strictly speaking, preloading of Docker images is not required.
+      # However, you might want to do this for a couple of reasons:
+      # - If the image comes from a private repository, it is much easier to let Concourse pull it,
+      #   and then pass it through to the task.
+      # - When the image is passed to the task, Concourse can often get the image from its cache.
 
-    
-    docker images
+      # This is just to visually check in the log that images have been loaded successfully
+      docker images
 
-    . the-gitrigger/generate-settings.sh
-
-    git clone the-gitrigger foo-app
-
-    cd foo-app
-
-    ./mvnw package docker:build
+      # Cleanup.
+      # Not sure if this is required.
+      # It's quite possible that Concourse is smart enough to clean up the Docker mess itself.
+      # docker-compose -f code/example/integration.yml down
+      # docker volume rm $(docker volume ls -q)
