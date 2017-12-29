@@ -5,7 +5,7 @@ set -e -x
 export ROOT_FOLDER=$( pwd )
 export REPO=repo
 
-docker --version && /usr/local/bin/dockerd && docker info
+env && docker --version && /usr/local/bin/dockerd && docker info
 
 . the-gitrigger/generate-settings.sh
 
