@@ -17,7 +17,7 @@ run:
   args:
     - -exc
     - |
-    set -e -x
+    
     export ROOT_FOLDER=$( pwd )
     export REPO=repo
 
