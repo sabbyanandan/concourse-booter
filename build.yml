@@ -6,6 +6,8 @@ image_resource:
   source:
     repository: maven
     tag: latest
+    repository: docker
+    tag: dind
     
 inputs:
   - name: the-gitrigger
