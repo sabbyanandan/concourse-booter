@@ -1,0 +1,11 @@
+---
+platform: linux
+inputs:
+- name: the-gitrigger
+outputs:
+- name: distribution-repository
+caches:
+- path: maven
+- path: gradle
+run:
+  path: the-gitrigger/fooz/build-project.sh
