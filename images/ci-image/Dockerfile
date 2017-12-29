@@ -1,4 +1,4 @@
-FROM openjdk:8u141-jdk
+FROM java:8-alpine
 
 RUN apt-get update && \
     apt-get install -y git && \
