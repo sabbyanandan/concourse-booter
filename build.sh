@@ -5,7 +5,7 @@ set -e -x
 export ROOT_FOLDER=$( pwd )
 export REPO=repo
 
-. /generate-settings.sh
+. the-gitrigger/generate-settings.sh
 
 git clone the-gitrigger foo-app
 
