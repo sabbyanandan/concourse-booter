@@ -5,6 +5,8 @@ set -e -x
 export ROOT_FOLDER=$( pwd )
 export REPO=repo
 
+ls -ltr
+
 echo "Start docker.."
 source /docker-lib.sh
 start_docker
