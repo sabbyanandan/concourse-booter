@@ -14,4 +14,4 @@ outputs:
   - name: foo-app
   
 run:
-  path: concourse-boot-sample/build.sh
+  path: the-gitrigger/build.sh

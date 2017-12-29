@@ -7,7 +7,7 @@ export REPO=repo
 
 . generate-settings.sh
 
-git clone concourse-boot-sample foo-app
+git clone the-gitrigger foo-app
 
 cd foo-app
 
