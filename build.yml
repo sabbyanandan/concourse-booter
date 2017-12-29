@@ -3,7 +3,7 @@ platform: linux
 
 image_resource: 
   type: docker-image
-  source: {repository: docker, tag: dind, repository: maven, tag: latest}
+  source: {repository: amidos, tag: dcind, repository: maven, tag: latest}
     
 inputs:
   - name: the-gitrigger
