@@ -36,6 +36,14 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>artifactory-sabby-vm-snapshots</name>
+        <url>http://35.224.73.172/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+ 	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -51,6 +59,8 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.23.0</version>
 				<configuration>
+				  <!-- <dockerHost>https://localhost:2376</dockerHost>
+				  <useColor>true</useColor> -->
 				  <images>
 					<image>
 					  <name>sabby/${project.artifactId}</name>
