@@ -1,13 +1,8 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env sh
 
-source /opt/concourse-java.sh
+set -e -u
 
-setup_symlinks
-cleanup_maven_repo "com.exmaple"
+[[ -d $PWD/maven && ! -d $HOME/.m2 ]] && ln -s $PWD/maven $HOME/.m2
 
-repository=$(pwd)/distribution-repository
-
-pushd the-gitrigger > /dev/null
-run_maven -f pom.xml clean deploy -U -Dfull -DaltDeploymentRepository=distribution::default::file://${repository}
-popd > /dev/null
+cd concourse-booter
+./mvnw deploy -DaltDeploymentRepository=distribution::default::file://$(pwd)/distribution-repository
