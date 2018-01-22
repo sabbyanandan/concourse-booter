@@ -12,10 +12,11 @@ inputs:
 
 outputs:
 - name: distribution-repository
+- name: docker-image
 
 caches:
 - path: maven
 - path: gradle
 
 run:
-  path: concourse-booter/ci/build-project.sh
+  path: concourse-booter/ci/deploy.sh

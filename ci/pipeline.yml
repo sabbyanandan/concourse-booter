@@ -1,0 +1,50 @@
+---
+resource_types:
+- name: artifactory-resource
+  type: docker-image
+  source:
+    repository: springio/artifactory-resource
+    tag: 0.0.3
+
+resources: 
+- name: concourse-booter
+  type: git
+  source:
+    uri: https://github.com/sabbyanandan/concourse-booter.git
+    branch: master
+
+# - name: docker-image-latest
+#   type: docker-image
+#   source:
+#     repository: ??/??
+#     username:   ((docker-username))
+#     password:   ((docker-password))
+
+- name: artifactory-repo
+  type: artifactory-resource
+  source:
+    uri: ((artifactory_uri))
+    username: ((artifactory_username))
+    password: ((artifactory_password))
+    build_name: concourse-boot-sample
+
+jobs:
+- name: build
+  serial: true
+  public: true
+  plan:
+  - get: concourse-booter
+    trigger: true
+  - task: build
+    file: concourse-booter/ci/deploy.yml
+  - aggregate:
+    - put: artifactory-repo
+      params:
+        repo: libs-snapshot-local
+        build_number: "${BUILD_ID}"
+        folder: distribution-repository
+        build_uri: "${ATC_EXTERNAL_URL}/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}"
+        disable_checksum_uploads: true
+    # - put: docker-image-latest
+    #   params:
+    #     build: docker-image
