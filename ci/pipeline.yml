@@ -13,12 +13,12 @@ resources:
     uri: https://github.com/sabbyanandan/concourse-booter.git
     branch: master
 
-# - name: docker-image-latest
-#   type: docker-image
-#   source:
-#     repository: ??/??
-#     username:   ((docker-username))
-#     password:   ((docker-password))
+- name: docker-image-latest
+  type: docker-image
+  source:
+    repository: sabby
+    username:   ((docker_username))
+    password:   ((docker_password))
 
 - name: artifactory-repo
   type: artifactory-resource
@@ -45,6 +45,7 @@ jobs:
         folder: distribution-repository
         build_uri: "${ATC_EXTERNAL_URL}/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}"
         disable_checksum_uploads: true
-    # - put: docker-image-latest
-    #   params:
-    #     build: docker-image
+        # debug: true 
+    - put: docker-image-latest
+      params:
+        build: docker-image

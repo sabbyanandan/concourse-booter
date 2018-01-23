@@ -33,3 +33,5 @@ spring-*/src/main/java/META-INF/MANIFEST.MF
 *.iws
 .idea/*
 rebel.xml
+
+.vscode/

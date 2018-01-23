@@ -8,4 +8,4 @@ repository=$(pwd)/distribution-repository
 
 cd concourse-booter
 ./mvnw deploy -DaltDeploymentRepository=distribution::default::file://${repository}
-# cp src/docker/Dockerfile target/concourse-booter-*.jar ../docker-image
+cp src/main/docker/Dockerfile target/concourse-booter-*.jar ../docker-image
