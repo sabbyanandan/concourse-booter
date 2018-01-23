@@ -2,7 +2,7 @@
 
 set -e -u
 
-find .
+find . -name "*.jar" | sed 's|concourse-booter-\(.*\)\.jar|\1|'
 
 # echo "Registering ${buildName}/${buildNumber}"
 

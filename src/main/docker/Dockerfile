@@ -1,5 +1,5 @@
 
-FROM java:8-alpine
+FROM java:8-jre-alpine
 
 ADD concourse-booter-*.jar concourse-booter.jar
 
