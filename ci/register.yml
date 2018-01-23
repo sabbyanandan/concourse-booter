@@ -4,8 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: alpine
-    tag: latest
+    repository: sabby/concourse-booter
 
 inputs:
 - name: concourse-booter
