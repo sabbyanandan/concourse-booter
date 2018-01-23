@@ -2,7 +2,9 @@
 
 set -e -u
 
-find . -name "*.jar" | sed 's|concourse-booter-\(.*\)\.jar|\1|'
+VERSION=$(find distribution-repository -name "*.jar" | xargs basename | sed 's|concourse-booter-\(.*\)\.jar|\1|')
+
+echo $VERSION
 
 # echo "Registering ${buildName}/${buildNumber}"
 
