@@ -1,0 +1,15 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+    tag: latest
+
+inputs:
+- name: concourse-booter
+- name: distribution-repository
+
+run:
+  path: concourse-booter/ci/register.sh

@@ -49,3 +49,21 @@ jobs:
     - put: docker-image-latest
       params:
         build: docker-image
+
+- name: register
+  serial: true
+  public: true
+  plan:
+  - aggregate:
+    - get: concourse-booter
+      passed:
+      - build
+    - get: distribution-repository
+      resource: artifactory-repo
+      trigger: true
+      passed:
+      - build
+      params:
+        generate_maven_metadata: true
+  - task: register
+    file: concourse-booter/ci/register.yml
