@@ -16,7 +16,7 @@ resources:
 - name: docker-image-latest
   type: docker-image
   source:
-    repository: sabby
+    repository: sabby/concourse-booter
     username:   ((docker_username))
     password:   ((docker_password))
 
