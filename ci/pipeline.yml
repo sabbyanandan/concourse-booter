@@ -7,18 +7,11 @@ resource_types:
     tag: 0.0.3
 
 resources: 
-- name: concourse-booter
-  type: git
-  source:
-    uri: https://github.com/sabbyanandan/concourse-booter.git
-    branch: master
-
-- name: docker-image-latest
+- name: alpine-latest
   type: docker-image
   source:
-    repository: sabby/concourse-booter
-    username:   ((docker_username))
-    password:   ((docker_password))
+    repository: alpine
+    tag:        latest
 
 - name: artifactory-repo
   type: artifactory-resource
@@ -26,7 +19,37 @@ resources:
     uri: ((artifactory_uri))
     username: ((artifactory_username))
     password: ((artifactory_password))
-    build_name: concourse-boot-sample
+    build_name: concourse-booter
+
+- name: concourse-booter
+  type: git
+  source:
+    uri: https://github.com/sabbyanandan/concourse-booter.git
+    branch: master
+    ignore_paths:
+    - ci/docker-image/*
+
+- name: concourse-booter-latest
+  type: docker-image
+  source:
+    repository: sabby/concourse-booter
+    username:   ((docker_username))
+    password:   ((docker_password))
+
+- name: concourse-booter-register-latest
+  type: docker-image
+  source:
+    repository: sabby/concourse-booter-register
+    username:   ((docker_username))
+    password:   ((docker_password))
+
+- name: docker-image
+  type: git
+  source:
+    uri:    https://github.com/sabbyanandan/concourse-booter.git
+    branch: master
+    paths:
+    - ci/docker-image/*
 
 jobs:
 - name: build
@@ -46,9 +69,22 @@ jobs:
         build_uri: "${ATC_EXTERNAL_URL}/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}"
         disable_checksum_uploads: true
         # debug: true 
-    - put: docker-image-latest
+    - put: concourse-booter-latest
       params:
         build: docker-image
+
+
+- name: docker-image
+  public: true
+  plan:
+  - aggregate:
+    - get: docker-image
+      trigger: true
+    - get: alpine-latest
+      trigger: true
+  - put: concourse-booter-register-latest
+    params:
+      build: docker-image/ci/docker-image
 
 - name: register
   serial: true

@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: sabby/concourse-booter
+    repository: sabby/concourse-booter-register
 
 inputs:
 - name: concourse-booter
